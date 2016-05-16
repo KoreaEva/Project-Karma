@@ -1,0 +1,19 @@
+1.	팀명
+: Karma
+
+2.	Process
+ 
+
+3.	역할분담
+?	Client Side: Xamarin.Forms 를 활용한 안드로이드 애플리케이션 개발(김은지 사원)
+?	Server Side: ASP.NET 4.5.2, Web Job을 이용한 백앤드 개발(오일석 부장)
+?	Azure App Service, Azure mobile Service 모바일 서비스 개발(김영욱 부장) 
+?	관리용 페이지 : Power BI 이용 관리자 페이지 개발(최훈 이사)
+
+4.	애플리케이션 Mockup
+ 
+
+5.	기타사항
+?	다른 애플리케이션과의 차별화를 위해 Badge Page에 신경을 쓰고, SNS 포스팅 및 Push 알림 구현을 염두해 두어야 함. 
+?	Outlook task 연동 가능 여부 확인 필요
+?	퀘스트는 기본적으로 1:1 방식으로 매핑 되며, 추후 퀘스트를 여러 명에게 전송하는 방식도 고려 예정
