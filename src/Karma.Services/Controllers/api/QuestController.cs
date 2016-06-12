@@ -18,9 +18,10 @@ namespace Karma.Services.Controllers.api
             QuestService = questService;
         }
         // GET: api/Quest
-        public IEnumerable<string> Get()
+        public IEnumerable<QuestViewModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            var quests = QuestService.Get();
+            return quests;
         }
 
         // GET: api/Quest/5
@@ -33,16 +34,20 @@ namespace Karma.Services.Controllers.api
         // POST: api/Quest
         public void Post([FromBody]QuestViewModel value)
         {
+            QuestService.Add(value);
+
         }
 
         // PUT: api/Quest/5
-        public void Put(int id, [FromBody]string value)
+        public void Put([FromBody]QuestViewModel value)
         {
+            QuestService.Update(value);
         }
 
         // DELETE: api/Quest/5
-        public void Delete(int id)
+        public void Delete(long id)
         {
+            QuestService.Delete(id);
         }
     }
 }

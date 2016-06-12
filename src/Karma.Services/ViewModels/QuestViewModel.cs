@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Karma.Services.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,8 @@ namespace Karma.Services.ViewModels
         public string ActorName { get; set; }
 
         public DateTimeOffset DueDate { get; set; }
+
+        public QuestState QuestState { get; set; }
 
     }
 }
