@@ -1,2 +1,0 @@
-C:\Users\iloh\Source\Karma\Project-Karma\src\Karma.Apps\Karma.Apps.UWP\Karma.Apps.UWP.csproj;x86
-C:\Users\iloh\Source\Karma\Project-Karma\src\Karma.Apps\Karma.Apps\Karma.Apps.csproj;neutral

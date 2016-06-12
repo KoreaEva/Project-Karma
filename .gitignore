@@ -1,2 +1,12 @@
 src/obj/
 src/.vs
+/src/Karma.Apps/Karma.Apps.Droid/bin/Debug
+/src/Karma.Apps/bin
+/src/Karma.Apps/obj
+/src/Karma.Apps/Karma.Apps.Droid/obj
+/src/Karma.Apps/Karma.Apps.UWP/obj
+/src/Karma.MobileApp/bin
+/src/Karma.MobileApp/obj
+/src/Karma.Services/bin
+/src/Karma.Services/obj
+/src/Karma.Apps/Karma.Apps/bin/Debug
