@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Karma.Services.Models
+namespace Karma.Services.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {
