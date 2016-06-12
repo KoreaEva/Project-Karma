@@ -53,6 +53,7 @@ namespace Karma.Services.Models
         /// <summary>
         /// 퀘스트 마감 요청일 
         /// </summary>
+        [Required]
         public DateTimeOffset DueDate { get; set; }
 
         /// <summary>

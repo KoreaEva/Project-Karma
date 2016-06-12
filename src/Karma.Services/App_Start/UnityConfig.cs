@@ -5,6 +5,8 @@ using Karma.Services.Models;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Karma.Services.DomainLogics.Interface;
+using Karma.Services.DomainLogics;
 
 namespace Karma.Services
 {
@@ -22,6 +24,8 @@ namespace Karma.Services
             container.RegisterType<UserManager<User>>();
             container.RegisterType<DbContext, ApplicationDbContext>();
             container.RegisterType<ApplicationUserManager>();
+
+            container.RegisterType<IQuestService, QuestService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

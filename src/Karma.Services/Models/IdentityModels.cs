@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Karma.Services.Models
 {
@@ -17,6 +18,9 @@ namespace Karma.Services.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        [Required]
+        public string Name { get; set; }
 
         public virtual ICollection<Badge> Badges { get; set; }
 
@@ -53,18 +57,20 @@ namespace Karma.Services.Models
             modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<IdentityRole>().ToTable("Roles");
 
+            // User
+            modelBuilder.Entity<User>().Property(x => x.Name).IsRequired();
+
             // Quest 
             modelBuilder.Entity<Quest>().ToTable("Quests");
             modelBuilder.Entity<Quest>().Property(t => t.Title).IsRequired();
             modelBuilder.Entity<Quest>().HasRequired(t => t.Creator).WithMany(t => t.OwnedQuests).HasForeignKey(x => x.CreatorId).WillCascadeOnDelete(false);
             modelBuilder.Entity<Quest>().HasRequired(t => t.Actor).WithMany(t => t.RequestedQuests).HasForeignKey(x => x.ActorId).WillCascadeOnDelete(false);
-
+            modelBuilder.Entity<Quest>().Property(t => t.DueDate).IsRequired();
 
             // Badge
             modelBuilder.Entity<Badge>().ToTable("Badges");
             modelBuilder.Entity<Badge>().Property(t => t.Title).IsRequired();
             modelBuilder.Entity<Badge>().HasMany(t => t.Users).WithMany(x => x.Badges); // many to many
-
         }
     }
 }
