@@ -12,7 +12,7 @@ namespace Karma.Services.Controllers.api
     public class QuestController : ApiController
     {
         private IQuestService QuestService;
-
+        
         public QuestController(IQuestService questService)
         {
             QuestService = questService;
