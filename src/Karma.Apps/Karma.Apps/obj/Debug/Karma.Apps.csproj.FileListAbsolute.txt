@@ -8,5 +8,3 @@ C:\Users\iloh\Source\Karma\Project-Karma\src\Karma.Apps\Karma.Apps\bin\Debug\Xam
 C:\Users\iloh\Source\Karma\Project-Karma\src\Karma.Apps\Karma.Apps\obj\Debug\Karma.Apps.csprojResolveAssemblyReference.cache
 C:\Users\iloh\Source\Karma\Project-Karma\src\Karma.Apps\Karma.Apps\obj\Debug\Karma.Apps.dll
 C:\Users\iloh\Source\Karma\Project-Karma\src\Karma.Apps\Karma.Apps\obj\Debug\Karma.Apps.pdb
-C:\Users\iloh\Source\Karma\Project-Karma\src\Karma.Apps\Karma.Apps\obj\Debug\Karma.Apps.dll.mdb
-C:\Users\iloh\Source\Karma\Project-Karma\src\Karma.Apps\Karma.Apps\bin\Debug\Karma.Apps.dll.mdb

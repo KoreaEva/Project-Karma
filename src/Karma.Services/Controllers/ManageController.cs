@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Karma.Services.ViewModels;
+using Karma.Services.Models;
 
 namespace Karma.Services.Controllers
 {
