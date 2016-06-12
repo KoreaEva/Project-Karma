@@ -11,5 +11,7 @@ src/.vs
 /src/Karma.Services/obj
 /src/Karma.Apps/Karma.Apps/bin/Debug
 /src/Karma.Apps/Karma.Apps/obj/Debug
-/src/Karma.Services/App_Data
 /src/Karma.Apps/Karma.Apps.iOS/obj/iPhone/Debug
+/src/Karma.Apps/Karma.Apps/obj/Debug
+/src/Karma.Services/App_Data/karma_log.ldf
+/src/Karma.Services/App_Data/karma.mdf
