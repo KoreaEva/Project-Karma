@@ -13,7 +13,7 @@ namespace Karma.Apps
         public App()
         {
             // The root page of your application
-            MainPage = new NewQuestPage();
+            MainPage = new LoginPage();
             
         }
 
