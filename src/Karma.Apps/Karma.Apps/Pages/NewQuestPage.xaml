@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Karma.Apps.Pages.NewQuestPage">
+  <ScrollView>
+    <StackLayout Padding="8">
+      <Label Text="Quest Name"></Label>
+      <Entry BackgroundColor="White"></Entry>
+      <Label Text="Person"></Label>
+      <Entry BackgroundColor="White"></Entry>      
+      <Label Text="Due Date"></Label>
+      <DatePicker
+        BackgroundColor="White"
+        x:Name="DateInfo">
+        <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+      </DatePicker>
+      <Label Text="Detail Info"></Label>
+      <Editor HeightRequest="100"
+              BackgroundColor="White"></Editor>
+      <Button Text="Save"></Button>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>
