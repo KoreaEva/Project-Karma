@@ -1,5 +1,7 @@
 namespace Karma.Services.Migrations
 {
+    using AutoMapper;
+    using DataObjects;
     using Models;
     using System;
     using System.Data.Entity;
@@ -11,6 +13,14 @@ namespace Karma.Services.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<MobileQuest, Quest>();
+                cfg.CreateMap<Quest, MobileQuest>()
+                    .ForMember(dst => dst.ActorId, map => map.MapFrom(x => x.Actor.Id))
+                    .ForMember(dst => dst.CreatorId, map => map.MapFrom(x => x.Creator.Id));
+            });
         }
 
         protected override void Seed(Karma.Services.Models.ApplicationDbContext context)

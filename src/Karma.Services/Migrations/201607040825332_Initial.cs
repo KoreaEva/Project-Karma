@@ -1,9 +1,11 @@
 namespace Karma.Services.Migrations
 {
     using System;
+    using System.Collections.Generic;
+    using System.Data.Entity.Infrastructure.Annotations;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialDatabase : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -11,12 +13,12 @@ namespace Karma.Services.Migrations
                 "dbo.Badges",
                 c => new
                     {
-                        Id = c.Long(nullable: false, identity: true),
+                        BadgeId = c.Long(nullable: false, identity: true),
                         Title = c.String(nullable: false),
                         Description = c.String(storeType: "ntext"),
                         PublishState = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
+                .PrimaryKey(t => t.BadgeId)
                 .Index(t => t.PublishState);
             
             CreateTable(
@@ -35,6 +37,7 @@ namespace Karma.Services.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
+                        Name = c.String(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
@@ -71,19 +74,59 @@ namespace Karma.Services.Migrations
                 "dbo.Quests",
                 c => new
                     {
-                        Id = c.Long(nullable: false, identity: true),
+                        QuestId = c.Long(nullable: false),
+                        CreatedAt = c.DateTimeOffset(nullable: false, precision: 7,
+                            annotations: new Dictionary<string, AnnotationValues>
+                            {
+                                { 
+                                    "ServiceTableColumn",
+                                    new AnnotationValues(oldValue: null, newValue: "CreatedAt")
+                                },
+                            }),
+                        Deleted = c.Boolean(nullable: false,
+                            annotations: new Dictionary<string, AnnotationValues>
+                            {
+                                { 
+                                    "ServiceTableColumn",
+                                    new AnnotationValues(oldValue: null, newValue: "Deleted")
+                                },
+                            }),
+                        Id = c.String(maxLength: 36,
+                            annotations: new Dictionary<string, AnnotationValues>
+                            {
+                                { 
+                                    "ServiceTableColumn",
+                                    new AnnotationValues(oldValue: null, newValue: "Id")
+                                },
+                            }),
+                        UpdatedAt = c.DateTimeOffset(precision: 7,
+                            annotations: new Dictionary<string, AnnotationValues>
+                            {
+                                { 
+                                    "ServiceTableColumn",
+                                    new AnnotationValues(oldValue: null, newValue: "UpdatedAt")
+                                },
+                            }),
+                        Version = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion",
+                            annotations: new Dictionary<string, AnnotationValues>
+                            {
+                                { 
+                                    "ServiceTableColumn",
+                                    new AnnotationValues(oldValue: null, newValue: "Version")
+                                },
+                            }),
                         Title = c.String(nullable: false),
                         Descriptions = c.String(storeType: "ntext"),
-                        CreatedTime = c.DateTimeOffset(nullable: false, precision: 7),
-                        UpdatedTime = c.DateTimeOffset(precision: 7),
                         CreatorId = c.String(nullable: false, maxLength: 128),
                         ActorId = c.String(nullable: false, maxLength: 128),
                         DueDate = c.DateTimeOffset(nullable: false, precision: 7),
                         QuestState = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
+                .PrimaryKey(t => t.QuestId)
                 .ForeignKey("dbo.Users", t => t.ActorId)
                 .ForeignKey("dbo.Users", t => t.CreatorId)
+                .Index(t => t.CreatedAt)
+                .Index(t => t.Id)
                 .Index(t => t.CreatorId)
                 .Index(t => t.ActorId)
                 .Index(t => t.QuestState);
@@ -116,13 +159,13 @@ namespace Karma.Services.Migrations
                 "dbo.BadgeUsers",
                 c => new
                     {
-                        Badge_Id = c.Long(nullable: false),
+                        Badge_BadgeId = c.Long(nullable: false),
                         User_Id = c.String(nullable: false, maxLength: 128),
                     })
-                .PrimaryKey(t => new { t.Badge_Id, t.User_Id })
-                .ForeignKey("dbo.Badges", t => t.Badge_Id, cascadeDelete: true)
+                .PrimaryKey(t => new { t.Badge_BadgeId, t.User_Id })
+                .ForeignKey("dbo.Badges", t => t.Badge_BadgeId, cascadeDelete: true)
                 .ForeignKey("dbo.Users", t => t.User_Id, cascadeDelete: true)
-                .Index(t => t.Badge_Id)
+                .Index(t => t.Badge_BadgeId)
                 .Index(t => t.User_Id);
             
         }
@@ -134,17 +177,19 @@ namespace Karma.Services.Migrations
             DropForeignKey("dbo.UserClaims", "IdentityUser_Id", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
             DropForeignKey("dbo.BadgeUsers", "User_Id", "dbo.Users");
-            DropForeignKey("dbo.BadgeUsers", "Badge_Id", "dbo.Badges");
+            DropForeignKey("dbo.BadgeUsers", "Badge_BadgeId", "dbo.Badges");
             DropForeignKey("dbo.Quests", "CreatorId", "dbo.Users");
             DropForeignKey("dbo.Quests", "ActorId", "dbo.Users");
             DropIndex("dbo.BadgeUsers", new[] { "User_Id" });
-            DropIndex("dbo.BadgeUsers", new[] { "Badge_Id" });
+            DropIndex("dbo.BadgeUsers", new[] { "Badge_BadgeId" });
             DropIndex("dbo.Roles", "RoleNameIndex");
             DropIndex("dbo.UserRoles", new[] { "IdentityUser_Id" });
             DropIndex("dbo.UserRoles", new[] { "RoleId" });
             DropIndex("dbo.Quests", new[] { "QuestState" });
             DropIndex("dbo.Quests", new[] { "ActorId" });
             DropIndex("dbo.Quests", new[] { "CreatorId" });
+            DropIndex("dbo.Quests", new[] { "Id" });
+            DropIndex("dbo.Quests", new[] { "CreatedAt" });
             DropIndex("dbo.UserLogins", new[] { "IdentityUser_Id" });
             DropIndex("dbo.UserClaims", new[] { "IdentityUser_Id" });
             DropIndex("dbo.Users", "UserNameIndex");
@@ -152,7 +197,45 @@ namespace Karma.Services.Migrations
             DropTable("dbo.BadgeUsers");
             DropTable("dbo.Roles");
             DropTable("dbo.UserRoles");
-            DropTable("dbo.Quests");
+            DropTable("dbo.Quests",
+                removedColumnAnnotations: new Dictionary<string, IDictionary<string, object>>
+                {
+                    {
+                        "CreatedAt",
+                        new Dictionary<string, object>
+                        {
+                            { "ServiceTableColumn", "CreatedAt" },
+                        }
+                    },
+                    {
+                        "Deleted",
+                        new Dictionary<string, object>
+                        {
+                            { "ServiceTableColumn", "Deleted" },
+                        }
+                    },
+                    {
+                        "Id",
+                        new Dictionary<string, object>
+                        {
+                            { "ServiceTableColumn", "Id" },
+                        }
+                    },
+                    {
+                        "UpdatedAt",
+                        new Dictionary<string, object>
+                        {
+                            { "ServiceTableColumn", "UpdatedAt" },
+                        }
+                    },
+                    {
+                        "Version",
+                        new Dictionary<string, object>
+                        {
+                            { "ServiceTableColumn", "Version" },
+                        }
+                    },
+                });
             DropTable("dbo.UserLogins");
             DropTable("dbo.UserClaims");
             DropTable("dbo.Users");

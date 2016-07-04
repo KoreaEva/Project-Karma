@@ -33,9 +33,9 @@ namespace Karma.Services.DomainLogics
                 CreatorName = x.Creator.Name,
                 Descriptions = x.Descriptions,
                 DueDate = x.DueDate,
-                Id = x.Id,
+                QuestId = x.QuestId,
                 Title = x.Title,
-                UpdatedTime = x.UpdatedTime,
+                UpdatedTime = x.UpdatedAt,
                 QuestState = x.QuestState
             }).ToList();
 
@@ -49,7 +49,7 @@ namespace Karma.Services.DomainLogics
         /// <returns></returns>
         public QuestViewModel Get(long id)
         {
-            var quest = DbContext.Quests.Include(x => x.ActorId).Include(x => x.Creator).Where(x => x.Id == id).Select(x => new QuestViewModel
+            var quest = DbContext.Quests.Include(x => x.ActorId).Include(x => x.Creator).Where(x => x.QuestId == id).Select(x => new QuestViewModel
             {
                 ActorId = x.ActorId,
                 ActorName = x.Actor.Name,
@@ -57,9 +57,9 @@ namespace Karma.Services.DomainLogics
                 CreatorName = x.Creator.Name,
                 Descriptions = x.Descriptions,
                 DueDate = x.DueDate,
-                Id = x.Id,
+                QuestId = x.QuestId,
                 Title = x.Title,
-                UpdatedTime = x.UpdatedTime,
+                UpdatedTime = x.UpdatedAt,
                 QuestState = x.QuestState
             }).FirstOrDefault();
 
@@ -75,13 +75,13 @@ namespace Karma.Services.DomainLogics
             var quest = new Quest
             {
                 ActorId = model.ActorId,
-                CreatedTime = DateTimeOffset.Now,
+                CreatedAt = DateTimeOffset.Now,
                 CreatorId = model.CreatorId,
                 Descriptions = model.Descriptions,
                 DueDate = model.DueDate,
                 QuestState = Models.Enums.QuestState.Created,
                 Title = model.Title,
-                UpdatedTime = DateTimeOffset.Now
+                UpdatedAt = DateTimeOffset.Now
             };
             DbContext.Quests.Add(quest);
             DbContext.SaveChanges();
@@ -97,7 +97,7 @@ namespace Karma.Services.DomainLogics
         /// <param name="model"></param>
         public void Update(QuestViewModel model)
         {
-            var quest = DbContext.Quests.Where(x => x.Id == model.Id).FirstOrDefault();
+            var quest = DbContext.Quests.Where(x => x.QuestId == model.QuestId).FirstOrDefault();
             if (quest == null) throw new ArgumentNullException("model", "No quest to update");
             
             // 일부 데이터만 업데이트 가능 
@@ -106,7 +106,7 @@ namespace Karma.Services.DomainLogics
             quest.Title = model.Title;
             quest.DueDate = model.DueDate;
             quest.QuestState = model.QuestState;
-            quest.UpdatedTime = DateTimeOffset.Now;
+            quest.UpdatedAt = DateTimeOffset.Now;
 
             DbContext.SaveChanges();
 
@@ -126,7 +126,7 @@ namespace Karma.Services.DomainLogics
         /// <param name="id"></param>
         public void Delete(long id)
         {
-            var quest = DbContext.Quests.Where(x => x.Id == id).FirstOrDefault();
+            var quest = DbContext.Quests.Where(x => x.QuestId == id).FirstOrDefault();
             if (quest == null) throw new ArgumentNullException("id", "No quest to update");
 
             quest.QuestState = Models.Enums.QuestState.Removed;

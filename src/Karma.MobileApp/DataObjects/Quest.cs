@@ -1,42 +1,17 @@
-﻿using Karma.Services.Models.Enums;
-using Microsoft.Azure.Mobile.Server.Tables;
+﻿using Karma.MobileApp.DataObjects.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Karma.Services.Models
+namespace Karma.MobileApp.DataObjects
 {
     public class Quest
     {
-        #region "For Mobile Offline Sync"
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Index]
-        [TableColumn(TableColumnType.CreatedAt)]
-        public DateTimeOffset? CreatedAt { get; set; }
-
-        [TableColumn(TableColumnType.Deleted)]
-        public bool Deleted { get; set; }
-
-        [Index]
-        [TableColumn(TableColumnType.Id)]
-        [MaxLength(36)]
-        public string Id { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [TableColumn(TableColumnType.UpdatedAt)]
-        public DateTimeOffset? UpdatedAt { get; set; }
-
-        [TableColumn(TableColumnType.Version)]
-        [Timestamp]
-        public byte[] Version { get; set; }
-
-        #endregion
         /// <summary>
         /// 아이디
         /// </summary>
         [Key]
-        public long QuestId { get; set; }
+        public long Id { get; set; }
         /// <summary>
         /// 퀘스트 제목
         /// </summary>
@@ -46,6 +21,14 @@ namespace Karma.Services.Models
         /// </summary>
         [Column(TypeName = "ntext")]
         public string Descriptions { get; set; }
+        /// <summary>
+        /// 생성일
+        /// </summary>
+        public DateTimeOffset CreatedTime { get; set; }
+        /// <summary>
+        /// 수정일
+        /// </summary>
+        public DateTimeOffset? UpdatedTime { get; set; }
 
         /// <summary>
         /// 퀘스트 만든사람 아이디

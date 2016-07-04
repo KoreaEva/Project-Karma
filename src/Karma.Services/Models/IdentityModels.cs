@@ -5,6 +5,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
+using Microsoft.Azure.Mobile.Server.Tables;
 
 namespace Karma.Services.Models
 {
@@ -48,6 +51,10 @@ namespace Karma.Services.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Conventions.Add(
+                new AttributeToColumnAnnotationConvention<TableColumnAttribute, string>(
+                    "ServiceTableColumn", (property, attributes) => attributes.Single().ColumnType.ToString()));
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<IdentityUser>().ToTable("Users");
@@ -71,6 +78,7 @@ namespace Karma.Services.Models
             modelBuilder.Entity<Badge>().ToTable("Badges");
             modelBuilder.Entity<Badge>().Property(t => t.Title).IsRequired();
             modelBuilder.Entity<Badge>().HasMany(t => t.Users).WithMany(x => x.Badges); // many to many
+
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Karma.Services.ViewModels
 {
     public class QuestViewModel
     {
-        public long Id { get; set; }
+        public long QuestId { get; set; }
 
         public string Title { get; set; }
 

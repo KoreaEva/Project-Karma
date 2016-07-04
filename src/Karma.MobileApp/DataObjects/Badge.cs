@@ -1,4 +1,4 @@
-﻿using Karma.Services.Models.Enums;
+﻿using Karma.MobileApp.DataObjects.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Karma.Services.Models
+namespace Karma.MobileApp.DataObjects
 {
     /// <summary>
     /// 뱃지
@@ -18,7 +18,7 @@ namespace Karma.Services.Models
         /// Badge Id
         /// </summary>
         [Key]
-        public long BadgeId { get; set; }
+        public long Id { get; set; }
         /// <summary>
         /// Badge Title
         /// </summary>
